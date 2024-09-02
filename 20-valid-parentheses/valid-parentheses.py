@@ -1,14 +1,13 @@
 class Solution:
     def isValid(self ,s: str) -> bool:
+        cap_ngoac = {'(': ')', '[': ']', '{': '}'}
         stack = []
-        for i in range(len(s)):
-            if s[i] in ['[', '(', '{']:
-                stack.append(s[i])
-            if s[i] in [']', ')', '}']:
-                if not stack:
+        for x in s:
+            if x in cap_ngoac.keys():
+                stack.append(x)
+            elif x in cap_ngoac.values():
+                if not stack or x != cap_ngoac[stack[-1]]:
                     return False
-                if s[i] == ')' and stack[-1] == '(' or s[i] == ']' and stack[-1] == '[' or s[i] == '}' and stack[-1] == '{':
-                    stack.pop()
                 else:
-                    return False
+                    stack.pop()
         return len(stack) == 0
